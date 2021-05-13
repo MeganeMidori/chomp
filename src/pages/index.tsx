@@ -3,14 +3,19 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { io } from "socket.io-client";
+import { State } from "src/shared/types";
 
 export default function Home() {
   useEffect(() => {
     const socket = io();
 
     socket.on("ping", (message) => {
-      console.log("ping", message)
+      console.log("ping", message);
       socket.emit("pong", Date.now());
+    });
+
+    socket.on("state", (state: State) => {
+      console.log("state", state);
     });
   }, []);
 
