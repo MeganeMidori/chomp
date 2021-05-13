@@ -11,4 +11,10 @@ export const handler = (socket:Socket) => {
   socket.on("pong", (message) => {
     console.log("pong", message);
   });
+
+  socket.on("state", (message) => {
+    console.log("state", message);
+    socket.broadcast.emit("state", message);
+    socket.emit("state", message);
+  });
 };
