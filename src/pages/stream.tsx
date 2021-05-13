@@ -19,21 +19,17 @@ const Stream = () => {
     });
   }, []);
 
-  const newGame = () => {
-    socket.emit("state", State.LOBBY);
-  };
-
-  const startBetting = () => {
-    socket.emit("state", State.BETTING);
+  const emitGameState = (newState: State) => () => {
+    socket.emit("state", newState);
   };
 
   switch (gameState) {
     case State.CLOSED:
-      return <NewGameComponent newGame={newGame} />;
+      return <NewGameComponent newGame={emitGameState(State.LOBBY)} />;
     case State.LOBBY:
-      return <Lobby startBetting={startBetting} />;
+      return <Lobby startBetting={emitGameState(State.BETTING)} />;
     case State.BETTING:
-      return <Betting />;
+      return <Betting startYoinking={emitGameState(State.PLAYING)} />;
     case State.PLAYING:
     case State.RESULTS:
       if (false) {
