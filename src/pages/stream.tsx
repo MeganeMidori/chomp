@@ -23,11 +23,15 @@ const Stream = () => {
     socket.emit("state", State.LOBBY);
   };
 
+  const startBetting = () => {
+    socket.emit("state", State.BETTING);
+  };
+
   switch (gameState) {
     case State.CLOSED:
       return <NewGameComponent newGame={newGame} />;
     case State.LOBBY:
-      return <Lobby />;
+      return <Lobby startBetting={startBetting} />;
     case State.BETTING:
       return <Betting />;
     case State.PLAYING:
