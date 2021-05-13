@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import styles from "../styles/Home.module.css";
 import { io } from "socket.io-client";
 import { State } from "src/shared/types";
@@ -11,31 +11,34 @@ import SuccessComponent from "src/components/player/success";
 import ThankU4PlayingComponent from "src/components/player/thankU4Playing";
 
 export default function Home() {
+  const socket = useMemo(() => io(), [io]);
+
   const [gameState, setGameState] = useState(State.CLOSED);
 
   useEffect(() => {
-    const socket = io();
-
-    socket.on("ping", (message) => {
-      console.log("ping", message);
-      socket.emit("pong", Date.now());
-    });
-
     socket.on("state", (state: State) => {
       console.log("state", state);
       setGameState(state);
     });
   }, []);
 
-  return (
-    <div className={styles.container}>
-      <NewGameComponent />
-      <Lobby />
-      <Betting />
-      <PlayingComponent />
-      <LossComponent />
-      <SuccessComponent />
-      <ThankU4PlayingComponent />
-    </div>
-  );
+  switch(gameState) {
+    case State.LOBBY:
+      if (false) {
+        return <Lobby />
+      }
+      return <NewGameComponent />
+    case State.BETTING:
+      return <Betting />
+    case State.PLAYING:
+      return <PlayingComponent />
+    case State.RESULTS:
+      if (false) {
+        return <LossComponent />
+      }
+      return <SuccessComponent />
+    case State.CLOSED:
+      return <ThankU4PlayingComponent />
+    default: <ThankU4PlayingComponent />
+  }
 }

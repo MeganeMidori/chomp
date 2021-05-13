@@ -7,26 +7,38 @@ import Betting from "src/components/streamer/betting";
 import PlayingComponent from "src/components/streamer/playing";
 import ThankU4PlayingComponent from "src/components/streamer/thankU4Playing";
 
-export default function Stream() {
-  const socket = useMemo(() => io(), [io])
+const Stream = () => {
+  const socket = useMemo(() => io(), [io]);
+
   const [gameState, setGameState] = useState(State.CLOSED);
 
   useEffect(() => {
     socket.on("state", (state: State) => {
       console.log("state", state);
       setGameState(state);
-      socket.emit("pong", Date.now());
     });
   }, []);
 
-  return (
-    <div>
-      <NewGameComponent newGame={newGame} />
-      <Lobby />
-      <Betting />
-      <PlayingComponent />
-      <ThankU4PlayingComponent />
+  const newGame = () => {
+    socket.emit("state", State.LOBBY);
+  };
 
-    </div>
-  );
-}
+  switch (gameState) {
+    case State.CLOSED:
+      return <NewGameComponent newGame={newGame} />;
+    case State.LOBBY:
+      return <Lobby />;
+    case State.BETTING:
+      return <Betting />;
+    case State.PLAYING:
+    case State.RESULTS:
+      if (false) {
+        return <ThankU4PlayingComponent />;
+      }
+      return <PlayingComponent />;
+    default:
+      return <ThankU4PlayingComponent />;
+  }
+};
+
+export default Stream;
