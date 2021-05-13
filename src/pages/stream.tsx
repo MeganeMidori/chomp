@@ -11,12 +11,18 @@ const Stream = () => {
   const socket = useMemo(() => io(), [io]);
 
   const [gameState, setGameState] = useState(State.CLOSED);
+  const [players, setPlayers] = useState([]);
 
   useEffect(() => {
     socket.on("state", (state: State) => {
       console.log("state", state);
       setGameState(state);
     });
+
+    socket.on("players", (players) => {
+      console.log("players", players);
+      setPlayers(players);
+    })
   }, []);
 
   const emitGameState = (newState: State) => () => {
@@ -27,7 +33,7 @@ const Stream = () => {
     case State.CLOSED:
       return <NewGameComponent newGame={emitGameState(State.LOBBY)} />;
     case State.LOBBY:
-      return <Lobby startBetting={emitGameState(State.BETTING)} />;
+      return <Lobby players={players} startBetting={emitGameState(State.BETTING)} />;
     case State.BETTING:
       return <Betting startYoinking={emitGameState(State.PLAYING)} />;
     case State.PLAYING:

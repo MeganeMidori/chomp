@@ -24,8 +24,9 @@ export default function Home() {
   }, []);
 
   const login = () => {
-    const user = prompt("Please enter your name", "");
-    setUser(user);
+    const newUser = prompt("Please enter your name", "");
+    setUser(newUser);
+    socket.emit("newPlayer", newUser);
   };
 
   switch (gameState) {
