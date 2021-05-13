@@ -4,4 +4,5 @@ export enum State {
     BETTING,
     PLAYING,
     RESULTS,
+    CREDITS,
   }

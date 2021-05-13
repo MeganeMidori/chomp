@@ -44,6 +44,7 @@ export default function Home() {
         return <LossComponent />;
       }
       return <SuccessComponent />;
+    case State.CREDITS:
     case State.CLOSED:
       return <ThankU4PlayingComponent />;
     default:

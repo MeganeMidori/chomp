@@ -6,6 +6,7 @@ import Lobby from "src/components/streamer/lobby";
 import Betting from "src/components/streamer/betting";
 import PlayingComponent from "src/components/streamer/playing";
 import ThankU4PlayingComponent from "src/components/streamer/thankU4Playing";
+import CreditsComponent from "src/components/streamer/credits";
 
 const Stream = () => {
   const socket = useMemo(() => io(), [io]);
@@ -38,10 +39,9 @@ const Stream = () => {
       return <Betting startYoinking={emitGameState(State.PLAYING)} />;
     case State.PLAYING:
     case State.RESULTS:
-      if (false) {
-        return <ThankU4PlayingComponent />;
-      }
-      return <PlayingComponent />;
+      return <PlayingComponent back2Bet={emitGameState(State.BETTING)} endGame={emitGameState(State.CREDITS)} />;
+    case State.CREDITS:
+      return <CreditsComponent closeGame={emitGameState(State.CLOSED)} />;
     default:
       return <ThankU4PlayingComponent />;
   }
