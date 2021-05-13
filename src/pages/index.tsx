@@ -14,6 +14,7 @@ export default function Home() {
   const socket = useMemo(() => io(), [io]);
 
   const [gameState, setGameState] = useState(State.CLOSED);
+  const [user, setUser] = useState("");
 
   useEffect(() => {
     socket.on("state", (state: State) => {
@@ -22,23 +23,29 @@ export default function Home() {
     });
   }, []);
 
-  switch(gameState) {
+  const login = () => {
+    const user = prompt("Please enter your name", "");
+    setUser(user);
+  };
+
+  switch (gameState) {
     case State.LOBBY:
-      if (false) {
-        return <Lobby />
+      if (user) {
+        return <Lobby />;
       }
-      return <NewGameComponent />
+      return <NewGameComponent login={login} />;
     case State.BETTING:
-      return <Betting />
+      return <Betting />;
     case State.PLAYING:
-      return <PlayingComponent />
+      return <PlayingComponent />;
     case State.RESULTS:
       if (false) {
-        return <LossComponent />
+        return <LossComponent />;
       }
-      return <SuccessComponent />
+      return <SuccessComponent />;
     case State.CLOSED:
-      return <ThankU4PlayingComponent />
-    default: <ThankU4PlayingComponent />
+      return <ThankU4PlayingComponent />;
+    default:
+      <ThankU4PlayingComponent />;
   }
 }
