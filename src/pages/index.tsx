@@ -15,11 +15,18 @@ export default function Home() {
 
   const [gameState, setGameState] = useState(State.CLOSED);
   const [user, setUser] = useState("");
+  const [teeth, setTeeth] = useState([1, 1, 1, 1, 1, 1, 1]);
+  const [bet, setBet] = useState(-1);
 
   useEffect(() => {
     socket.on("state", (state: State) => {
       console.log("state", state);
       setGameState(state);
+    });
+
+    socket.on("betPlaced", (bet: any) => {
+      console.log("betPlaced", bet);
+      setBet(bet);
     });
   }, []);
 
@@ -29,6 +36,11 @@ export default function Home() {
     socket.emit("newPlayer", newUser);
   };
 
+  const placeBet = (i:any) => {
+    console.log(i)
+    socket.emit("newBet", { bet: i, user: user });
+  };
+
   switch (gameState) {
     case State.LOBBY:
       if (user) {
@@ -36,7 +48,7 @@ export default function Home() {
       }
       return <NewGameComponent login={login} />;
     case State.BETTING:
-      return <Betting />;
+      return <Betting teeth={teeth} bet={bet} placeBet={placeBet}/>;
     case State.PLAYING:
       return <PlayingComponent />;
     case State.RESULTS:
