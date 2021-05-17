@@ -1,6 +1,11 @@
-import React from "react";
+import React, { ComponentType } from "react";
 
-const Lobby = ({ players, startBetting }) => (
+interface Props {
+  players: Array<string>,
+  startBetting: () => void
+}
+
+const Lobby: ComponentType<Props> = ({ players, startBetting }) => (
   <div>
     <h2>lobby</h2>
     <div>{players.length} players in lobby...</div>

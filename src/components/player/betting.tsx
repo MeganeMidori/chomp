@@ -1,9 +1,15 @@
-import React from "react";
+import React, { ComponentType } from "react";
 
-const Betting = ({ teeth, bet, placeBet }) => (
+interface Props {
+  teeth: Array<number>,
+  bet: number,
+  placeBet: (tooth: number) => void 
+}
+
+const Betting: ComponentType<Props> = ({ teeth, bet, placeBet }) => (
   <div>
     <h2>Betting on {bet}</h2>
-    {teeth.map((tooth, i: any) => (
+    {teeth.map((tooth, i) => (
       <div>
         <button type="button" onClick={() => placeBet(i)} disabled={tooth === 0}>
           Tooth {i}

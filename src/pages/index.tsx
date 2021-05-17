@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useMemo } from "react";
-import styles from "../styles/Home.module.css";
 import { io } from "socket.io-client";
 import { State } from "src/shared/types";
 import NewGameComponent from "src/components/player/newGame";
@@ -17,30 +16,53 @@ export default function Home() {
   const [user, setUser] = useState("");
   const [teeth, setTeeth] = useState([1, 1, 1, 1, 1, 1, 1]);
   const [bet, setBet] = useState(-1);
+  const [lost, setLost] = useState(false);
 
   useEffect(() => {
     socket.on("state", (state: State) => {
       console.log("state", state);
       setGameState(state);
     });
-
-    socket.on("betPlaced", (bet: any) => {
-      console.log("betPlaced", bet);
-      setBet(bet);
-    });
   }, []);
 
+  useEffect(() => {
+    if (user) {
+      socket.on("betPlaced", (bet: number) => {
+        console.log("betPlaced", bet);
+        setBet(bet);
+      });
+
+      socket.on("losers", (losers: Array<string>) => {
+        if (lost) {
+          return;
+        }
+        if (losers.indexOf(user) > -1) {
+          setLost(true);
+        }
+      });
+
+      socket.on("newTeeth", (newTeeth: Array<number>) => {
+        setTeeth(newTeeth);
+      })
+    }
+  }, [user]);
+
   const login = () => {
-    const newUser = prompt("Please enter your name", "");
+    const newUser = prompt("Please enter your name", "") || "";
     setUser(newUser);
     socket.emit("newPlayer", newUser);
   };
 
-  const placeBet = (i:any) => {
-    console.log(i)
-    socket.emit("newBet", { bet: i, user: user });
+  const placeBet = (tooth: number) => {
+    socket.emit("newBet", { bet: tooth, user: user });
   };
 
+  if (!user && gameState !== State.LOBBY) {
+    <div>Game in progress</div>;
+  }
+  if (lost) {
+    return <LossComponent />;
+  }
   switch (gameState) {
     case State.LOBBY:
       if (user) {
@@ -48,13 +70,10 @@ export default function Home() {
       }
       return <NewGameComponent login={login} />;
     case State.BETTING:
-      return <Betting teeth={teeth} bet={bet} placeBet={placeBet}/>;
+      return <Betting teeth={teeth} bet={bet} placeBet={placeBet} />;
     case State.PLAYING:
       return <PlayingComponent />;
     case State.RESULTS:
-      if (false) {
-        return <LossComponent />;
-      }
       return <SuccessComponent />;
     case State.CREDITS:
     case State.CLOSED:

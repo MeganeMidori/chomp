@@ -1,6 +1,10 @@
-import React from "react";
+import React, { ComponentType } from "react";
 
-const NewGameComponent = ({ login }) => (
+interface Props {
+  login: () => void
+}
+
+const NewGameComponent: ComponentType<Props> = ({ login }) => (
   <div>
     <button type="button" onClick={login}>
       Join with twitch

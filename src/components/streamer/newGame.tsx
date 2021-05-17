@@ -1,6 +1,10 @@
-import React from "react";
+import React, { ComponentType } from "react";
 
-const NewGameComponent = ({ newGame }) => (
+interface Props {
+  newGame: () => void
+}
+
+const NewGameComponent: ComponentType<Props> = ({ newGame }) => (
   <div>
     <button type="button" onClick={newGame}>
       Start Game

@@ -1,11 +1,16 @@
-import React from "react";
+import React, { ComponentType } from "react";
 
-const Betting = ({ startYoinking, bets }) => (
+interface Props {
+  startYoinking: () => void,
+  bets: Array<Array<string>>
+}
+
+const Betting: ComponentType<Props> = ({ startYoinking, bets }) => (
   <div>
     <h2>betting</h2>
     <div>
       <ul>
-        {bets.map((bet: any, i: any) => (
+        {bets.map((bet, i) => (
           <li>
             Tooth {i}: {bet.length}
           </li>

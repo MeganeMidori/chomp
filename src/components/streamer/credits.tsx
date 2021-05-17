@@ -1,6 +1,10 @@
-import React from "react";
+import React, { ComponentType } from "react";
 
-const Betting = ({ closeGame }) => (
+interface  Props {
+  closeGame: () => void
+}
+
+const Betting: ComponentType<Props> = ({ closeGame }) => (
   <div>
     <h2>Credits</h2>
     <div>
