@@ -1,2 +1,4 @@
 [ ] twitch login
-[ ] reset bets on new round
+[ ] store losers on server side
+
+[X] reset bets on new round

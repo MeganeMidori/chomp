@@ -41,8 +41,13 @@ export default function Home() {
         }
       });
 
-      socket.on("newTeeth", (newTeeth: Array<number>) => {
+      socket.on("newGameRound", (newGameState) => {
+        const newTeeth = newGameState.teeth
+        const newBets = newGameState.bets
+        const newState = newGameState.state
         setTeeth(newTeeth);
+        setBet(newBets.indexOf(user));
+        setGameState(newState);
       })
     }
   }, [user]);

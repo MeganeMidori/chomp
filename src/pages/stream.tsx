@@ -35,8 +35,13 @@ const Stream = () => {
       setBets(newBets);
     });
 
-    socket.on("newTeeth", (newTeeth) => {
+    socket.on("newGameRound", (newGameState) => {
+      const newTeeth = newGameState.teeth
+      const newBets = newGameState.bets
+      const newState = newGameState.state
       setTeeth(newTeeth);
+      setBets(newBets);
+      setGameState(newState);
     });
 
     socket.on("newWinners", (newWinners) => {
@@ -64,17 +69,17 @@ const Stream = () => {
 
   const back2Bet = () => {
     if (winners.length < 5) {
+      // TODO: handle game over
       console.log("END THE GAME");
     }
     if (teeth.length < 2) {
-      // restart with fresh teeth
+      // TODO: restart with fresh teeth
     }
     setIsOpen(true);
     setLocalTeeth(teeth);
     const newTeeth = [...teeth];
     newTeeth[badTooth] = 0;
-    socket.emit("newTeeth", newTeeth);
-    emitGameState(State.BETTING)();
+    socket.emit("endGameRound", { newTeeth: newTeeth });
   };
 
   const startYoinking = () => {

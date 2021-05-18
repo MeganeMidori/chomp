@@ -31,7 +31,8 @@ export const handler = (socket: Socket) => {
   });
 
   // TODO: only during betting game state
-  // TODO: only existing users
+  // TODO: only existing/not losing users
+  // TODO: only valid teeth
   socket.on("newBet", (betObj) => {
     console.log("bet", betObj);
 
@@ -63,9 +64,14 @@ export const handler = (socket: Socket) => {
   });
 
   // TODO: Streamer only
-  socket.on("newTeeth", (newTeeth) => {
+  socket.on("endGameRound", ({ newTeeth }) => {
+    state = State.BETTING;
     teeth = newTeeth;
-    socket.broadcast.emit("newTeeth", teeth);
-    socket.emit("newTeeth", teeth);
+    bets = [[], [], [], [], [], [], []];
+
+    const newGameState = { state, teeth, bets };
+
+    socket.broadcast.emit("newGameRound", newGameState);
+    socket.emit("newGameRound", newGameState);
   });
 };
