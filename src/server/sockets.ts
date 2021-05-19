@@ -85,6 +85,19 @@ export const handler = async (socket: Socket) => {
     logState();
   });
 
+  //TODO: streamer only
+  socket.on("losers", (losers) => {
+    losers.map((player: User) => {
+      const playerEntry = players.find((p) => p.id === player.id) || {
+        lost: true,
+      };
+      playerEntry.lost = true;
+    });
+
+    socket.broadcast.emit("losers", losers);
+    socket.emit("players", players);
+  });
+
   // TODO: streamer only
   socket.on("chomp", (badTooth) => {
     // update lost players from bets
@@ -94,7 +107,7 @@ export const handler = async (socket: Socket) => {
       };
       playerEntry.lost = true;
     });
-    const losers = players.filter(user => user.lost === true)
+    const losers = players.filter((user) => user.lost === true);
 
     // update teeth
     teeth[badTooth] = 0;
@@ -121,12 +134,12 @@ export const handler = async (socket: Socket) => {
 
   socket.on("gameOver", () => {
     players = [];
-    bets = [[],[],[],[],[],[],[]];
-    teeth = [1,1,1,1,1,1,1];
+    bets = [[], [], [], [], [], [], []];
+    teeth = [1, 1, 1, 1, 1, 1, 1];
     state = State.CLOSED;
 
     socket.emit("gameEnded");
     socket.broadcast.emit("gameEnded");
     logState();
-  })
+  });
 };

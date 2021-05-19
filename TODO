@@ -1,6 +1,6 @@
+[ ] hide game pages for not logged in users
 
-[ ] eliminate non voting players
-
+[x] eliminate non voting players
 [x] store losers on server side
 [x] consolidate winners,players, and losers list to one players list with win states
 [x] twitch login

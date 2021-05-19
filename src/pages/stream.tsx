@@ -54,7 +54,7 @@ const Stream = () => {
 
     socket.on("gameEnded", () => {
       window.location.replace("/stream");
-    })
+    });
   }, []);
 
   const emitGameState = (newState: State) => () => {
@@ -86,6 +86,11 @@ const Stream = () => {
   };
 
   const startYoinking = () => {
+    const losers = players.filter(
+      (player: User) => !bets.flat().find((p: User) => p.id === player.id)
+    );
+    socket.emit("losers", losers);
+
     setLocalTeeth(teeth);
     let nextBadToothCount = Math.floor(Math.random() * teeth.length);
     while (teeth[nextBadToothCount] === 0) {
@@ -97,7 +102,7 @@ const Stream = () => {
 
   const endGame = () => {
     socket.emit("gameOver");
-  }
+  };
 
   switch (gameState) {
     case State.CLOSED:
