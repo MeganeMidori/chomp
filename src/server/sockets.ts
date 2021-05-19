@@ -75,8 +75,8 @@ export const handler = async (socket: Socket) => {
       return;
     }
 
-    bets = bets.map((betPlayers: Array<string>) =>
-      betPlayers.filter((usr: string) => usr !== user)
+    bets = bets.map((betPlayers: Array<User>) =>
+      betPlayers.filter((usr: User) => usr.id !== user.id)
     );
     bets[bet].push(user);
 
