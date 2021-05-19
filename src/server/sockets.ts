@@ -1,12 +1,16 @@
 import { Socket } from "socket.io";
 import { State } from "../shared/types";
+// import { getLoginSession } from '../lib/auth'
 
 let state: State = State.CLOSED;
-let players: Array<string> = [];
+let players: any = [];
 let bets: Array<Array<string>> = [[], [], [], [], [], [], []];
 let teeth: Array<number> = [1, 1, 1, 1, 1, 1, 1];
 
-export const handler = (socket: Socket) => {
+export const handler = async (socket: Socket) => {
+  // const session = await getLoginSession(socket.handshake)
+  // console.log(session.id, session.display_name)
+
   console.log("connection");
   socket.emit("state", state);
   socket.emit("players", players);
@@ -24,10 +28,12 @@ export const handler = (socket: Socket) => {
   // TODO: only during lobby game state
   socket.on("newPlayer", (user) => {
     console.log("user", user);
-    const newPlayers = players;
-    newPlayers.push(user);
-    players = newPlayers;
-    socket.broadcast.emit("players", players);
+    console.log('OLD PLAYERS', players);
+    if (!players.find((u: any) => (u.id === user.id))) {
+      players.push(user);
+      socket.broadcast.emit("players", players);
+    }
+    console.log('NEW PLAYERS', players);
   });
 
   // TODO: only during betting game state
