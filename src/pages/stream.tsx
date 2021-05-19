@@ -51,6 +51,10 @@ const Stream = () => {
       setBets(newBets);
       setGameState(newState);
     });
+
+    socket.on("gameEnded", () => {
+      window.location.replace("/stream");
+    })
   }, []);
 
   const emitGameState = (newState: State) => () => {
@@ -91,6 +95,10 @@ const Stream = () => {
     emitGameState(State.PLAYING)();
   };
 
+  const endGame = () => {
+    socket.emit("gameOver");
+  }
+
   switch (gameState) {
     case State.CLOSED:
       return <NewGameComponent newGame={emitGameState(State.LOBBY)} />;
@@ -112,7 +120,7 @@ const Stream = () => {
         />
       );
     case State.CREDITS:
-      return <CreditsComponent closeGame={emitGameState(State.CLOSED)} players={players} />;
+      return <CreditsComponent closeGame={endGame} players={players} />;
     default:
       return <ThankU4PlayingComponent />;
   }

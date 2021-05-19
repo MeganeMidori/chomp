@@ -118,4 +118,15 @@ export const handler = async (socket: Socket) => {
     socket.emit("newGameRound", newGameState);
     logState();
   });
+
+  socket.on("gameOver", () => {
+    players = [];
+    bets = [[],[],[],[],[],[],[]];
+    teeth = [1,1,1,1,1,1,1];
+    state = State.CLOSED;
+
+    socket.emit("gameEnded");
+    socket.broadcast.emit("gameEnded");
+    logState();
+  })
 };

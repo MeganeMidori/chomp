@@ -25,6 +25,10 @@ export default function Home() {
       console.log("state", state);
       setGameState(state);
     });
+
+    socket.on("gameEnded", () => {
+      window.location.replace("/api/auth/logout");
+    })
   }, []);
 
   useEffect(() => {
