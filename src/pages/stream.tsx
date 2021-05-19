@@ -38,6 +38,7 @@ const Stream = () => {
     socket.on("players", (players) => {
       console.log("players", players);
       setPlayers(players);
+      setWinners(players);
     });
 
     socket.on("newBets", (newBets) => {
@@ -87,6 +88,8 @@ const Stream = () => {
   };
 
   const startYoinking = () => {
+    const newLosers = winners.filter((player) => bets.flat().indexOf(player) < 0);
+    socket.emit("losers", newLosers);
     setLocalTeeth(teeth);
     let nextBadToothCount = Math.floor(Math.random() * teeth.length);
     while (teeth[nextBadToothCount] === 0) {

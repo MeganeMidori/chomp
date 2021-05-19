@@ -1,5 +1,6 @@
 [ ] twitch login
 [ ] store losers on server side
-[ ] eliminate non-voters
+[ ] consolidate winners,players, and losers list to one players list with win states
 
+[x] eliminate non-voters
 [X] reset bets on new round
