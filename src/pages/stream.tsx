@@ -73,8 +73,8 @@ const Stream = () => {
 
   const back2Bet = () => {
     if (players.filter((player: User) => player.lost === false).length < 5) {
-      // TODO: handle game over
-      console.log("END THE GAME");
+      emitGameState(State.CREDITS)();
+      return;
     }
     setIsOpen(true);
     const newTeeth = calculateNewTeeth(teeth, badTooth);
@@ -112,7 +112,7 @@ const Stream = () => {
         />
       );
     case State.CREDITS:
-      return <CreditsComponent closeGame={emitGameState(State.CLOSED)} />;
+      return <CreditsComponent closeGame={emitGameState(State.CLOSED)} players={players} />;
     default:
       return <ThankU4PlayingComponent />;
   }
