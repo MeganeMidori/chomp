@@ -7,6 +7,36 @@ let players: Array<User> = [];
 let bets: Array<Array<string>> = [[], [], [], [], [], [], []];
 let teeth: Array<number> = [1, 1, 1, 1, 1, 1, 1];
 
+const logState = () => {
+  console.log("┌────── ⋆⋅✦⋅⋆ ──────┐");
+  console.log("     STATE UPDATED    ");
+  console.log(
+    "state:",
+    `
+  `,
+    state
+  );
+  console.log(
+    "players:",
+    `
+  `,
+    players
+  );
+  console.log(
+    "bets:",
+    `
+  `,
+    bets
+  );
+  console.log(
+    "teeth:",
+    `
+  `,
+    teeth
+  );
+  console.log("└────── ⋆⋅✦⋅⋆ ──────┘");
+};
+
 export const handler = async (socket: Socket) => {
   // const session = await getLoginSession(socket.handshake)
   // console.log(session.id, session.display_name)
@@ -19,29 +49,25 @@ export const handler = async (socket: Socket) => {
 
   // TODO: streamer only
   socket.on("state", (newState) => {
-    console.log("state", newState);
     state = newState;
     socket.broadcast.emit("state", newState);
     socket.emit("state", newState);
+    logState();
   });
 
   // TODO: only during lobby game state
   socket.on("newPlayer", (user) => {
-    console.log("user", user);
-    console.log('OLD PLAYERS', players);
-    if (!players.find((u: User) => (u.id === user.id))) {
+    if (!players.find((u: User) => u.id === user.id)) {
       players.push(user);
       socket.broadcast.emit("players", players);
     }
-    console.log('NEW PLAYERS', players);
+    logState();
   });
 
   // TODO: only during betting game state
   // TODO: only existing/not losing users
   // TODO: only valid teeth
   socket.on("newBet", (betObj) => {
-    console.log("bet", betObj);
-
     const bet = betObj.bet;
     const user = betObj.user;
 
@@ -58,6 +84,7 @@ export const handler = async (socket: Socket) => {
 
     socket.broadcast.emit("newBets", bets);
     socket.emit("betPlaced", bet);
+    logState();
   });
 
   // TODO: streamer only
@@ -67,6 +94,7 @@ export const handler = async (socket: Socket) => {
       "newWinners",
       players.filter((player: User) => losers.indexOf(player) < 0)
     );
+    logState();
   });
 
   // TODO: Streamer only
@@ -79,5 +107,6 @@ export const handler = async (socket: Socket) => {
 
     socket.broadcast.emit("newGameRound", newGameState);
     socket.emit("newGameRound", newGameState);
+    logState();
   });
 };
