@@ -1,7 +1,9 @@
 import React, { ComponentType } from "react";
+import { User } from "src/shared/types";
 
 interface Props {
   login: () => void,
+  user: User
 }
 
 const NewGameComponent: ComponentType<Props> = ({ login, user }) => (

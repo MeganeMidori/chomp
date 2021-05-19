@@ -6,3 +6,8 @@ export enum State {
     RESULTS,
     CREDITS,
   }
+
+export interface User {
+  id: string,
+  display_name: string
+}

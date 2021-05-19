@@ -1,9 +1,9 @@
 import { Socket } from "socket.io";
-import { State } from "../shared/types";
+import { State, User } from "../shared/types";
 // import { getLoginSession } from '../lib/auth'
 
 let state: State = State.CLOSED;
-let players: any = [];
+let players: Array<User> = [];
 let bets: Array<Array<string>> = [[], [], [], [], [], [], []];
 let teeth: Array<number> = [1, 1, 1, 1, 1, 1, 1];
 
@@ -29,7 +29,7 @@ export const handler = async (socket: Socket) => {
   socket.on("newPlayer", (user) => {
     console.log("user", user);
     console.log('OLD PLAYERS', players);
-    if (!players.find((u: any) => (u.id === user.id))) {
+    if (!players.find((u: User) => (u.id === user.id))) {
       players.push(user);
       socket.broadcast.emit("players", players);
     }
@@ -65,7 +65,7 @@ export const handler = async (socket: Socket) => {
     socket.broadcast.emit("losers", losers);
     socket.emit(
       "newWinners",
-      players.filter((player: string) => losers.indexOf(player) < 0)
+      players.filter((player: User) => losers.indexOf(player) < 0)
     );
   });
 
