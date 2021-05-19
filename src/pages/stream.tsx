@@ -8,6 +8,15 @@ import PlayingComponent from "src/components/streamer/playing";
 import ThankU4PlayingComponent from "src/components/streamer/thankU4Playing";
 import CreditsComponent from "src/components/streamer/credits";
 
+const calculateNewTeeth = (teeth: Array<number>, badTooth: number) => {
+  if (teeth.filter((tooth) => tooth === 1).length <= 2) {
+    return [1, 1, 1, 1, 1, 1, 1];
+  }
+  const newTeeth = [...teeth];
+  newTeeth[badTooth] = 0;
+  return newTeeth;
+};
+
 const Stream = () => {
   const socket = useMemo(() => io(), [io]);
 
@@ -36,9 +45,9 @@ const Stream = () => {
     });
 
     socket.on("newGameRound", (newGameState) => {
-      const newTeeth = newGameState.teeth
-      const newBets = newGameState.bets
-      const newState = newGameState.state
+      const newTeeth = newGameState.teeth;
+      const newBets = newGameState.bets;
+      const newState = newGameState.state;
       setTeeth(newTeeth);
       setBets(newBets);
       setGameState(newState);
@@ -72,13 +81,8 @@ const Stream = () => {
       // TODO: handle game over
       console.log("END THE GAME");
     }
-    if (teeth.length < 2) {
-      // TODO: restart with fresh teeth
-    }
     setIsOpen(true);
-    setLocalTeeth(teeth);
-    const newTeeth = [...teeth];
-    newTeeth[badTooth] = 0;
+    const newTeeth = calculateNewTeeth(teeth, badTooth);
     socket.emit("endGameRound", { newTeeth: newTeeth });
   };
 
