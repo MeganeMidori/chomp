@@ -1,5 +1,4 @@
-[ ] hide game pages for not logged in users
-
+[x] hide game pages for not logged in users
 [x] eliminate non voting players
 [x] store losers on server side
 [x] consolidate winners,players, and losers list to one players list with win states

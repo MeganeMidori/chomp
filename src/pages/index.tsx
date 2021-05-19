@@ -80,7 +80,7 @@ export default function Home() {
   };
 
   if (!user && gameState !== State.LOBBY) {
-    <div>Game in progress</div>;
+    return <div>Game in progress</div>;
   }
   if (lost) {
     return <LossComponent />;
