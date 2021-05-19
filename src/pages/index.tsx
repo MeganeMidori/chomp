@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useUser } from "../lib/hooks";
 import { io } from "socket.io-client";
-import { State } from "src/shared/types";
+import { State, User } from "src/shared/types";
 import NewGameComponent from "src/components/player/newGame";
 import Lobby from "src/components/player/lobby";
 import Betting from "src/components/player/betting";
@@ -34,11 +34,11 @@ export default function Home() {
         setBet(bet);
       });
 
-      socket.on("losers", (losers: Array<string>) => {
+      socket.on("losers", (losers: Array<User>) => {
         if (lost) {
           return;
         }
-        if (losers.indexOf(user) > -1) {
+        if (losers.find((loser) => loser.id === user.id)) {
           setLost(true);
         }
       });

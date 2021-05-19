@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { io } from "socket.io-client";
-import { State } from "src/shared/types";
+import { State, User } from "src/shared/types";
 import NewGameComponent from "src/components/streamer/newGame";
 import Lobby from "src/components/streamer/lobby";
 import Betting from "src/components/streamer/betting";
@@ -22,7 +22,6 @@ const Stream = () => {
 
   const [gameState, setGameState] = useState(State.CLOSED);
   const [players, setPlayers] = useState([]);
-  const [winners, setWinners] = useState(players);
   const [bets, setBets] = useState([[], [], [], [], [], [], []]);
   const [teeth, setTeeth] = useState([1, 1, 1, 1, 1, 1, 1]);
   const [localTeeth, setLocalTeeth] = useState([1, 1, 1, 1, 1, 1, 1]);
@@ -38,7 +37,6 @@ const Stream = () => {
     socket.on("players", (players) => {
       console.log("players", players);
       setPlayers(players);
-      setWinners(players);
     });
 
     socket.on("newBets", (newBets) => {
@@ -53,10 +51,6 @@ const Stream = () => {
       setBets(newBets);
       setGameState(newState);
     });
-
-    socket.on("newWinners", (newWinners) => {
-      setWinners(newWinners);
-    });
   }, []);
 
   const emitGameState = (newState: State) => () => {
@@ -66,7 +60,7 @@ const Stream = () => {
   const pickTooth = (tooth: number) => {
     if (tooth === badTooth) {
       setIsOpen(false);
-      socket.emit("losers", bets[tooth]);
+      socket.emit("chomp", badTooth);
       emitGameState(State.RESULTS)();
       return;
     }
@@ -78,7 +72,7 @@ const Stream = () => {
   };
 
   const back2Bet = () => {
-    if (winners.length < 5) {
+    if (players.filter((player: User) => player.lost === false).length < 5) {
       // TODO: handle game over
       console.log("END THE GAME");
     }
@@ -88,8 +82,6 @@ const Stream = () => {
   };
 
   const startYoinking = () => {
-    const newLosers = winners.filter((player) => bets.flat().indexOf(player) < 0);
-    socket.emit("losers", newLosers);
     setLocalTeeth(teeth);
     let nextBadToothCount = Math.floor(Math.random() * teeth.length);
     while (teeth[nextBadToothCount] === 0) {

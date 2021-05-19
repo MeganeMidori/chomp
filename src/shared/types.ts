@@ -9,5 +9,6 @@ export enum State {
 
 export interface User {
   id: string,
-  display_name: string
+  display_name: string,
+  lost: boolean
 }

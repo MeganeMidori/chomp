@@ -4,7 +4,7 @@ import { State, User } from "../shared/types";
 
 let state: State = State.CLOSED;
 let players: Array<User> = [];
-let bets: Array<Array<string>> = [[], [], [], [], [], [], []];
+let bets: Array<Array<User>> = [[], [], [], [], [], [], []];
 let teeth: Array<number> = [1, 1, 1, 1, 1, 1, 1];
 
 const logState = () => {
@@ -58,7 +58,7 @@ export const handler = async (socket: Socket) => {
   // TODO: only during lobby game state
   socket.on("newPlayer", (user) => {
     if (!players.find((u: User) => u.id === user.id)) {
-      players.push(user);
+      players.push({ ...user, lost: false });
       socket.broadcast.emit("players", players);
     }
     logState();
@@ -80,21 +80,30 @@ export const handler = async (socket: Socket) => {
     );
     bets[bet].push(user);
 
-    console.log("new bets:", bets);
-
     socket.broadcast.emit("newBets", bets);
     socket.emit("betPlaced", bet);
     logState();
   });
 
   // TODO: streamer only
-  socket.on("losers", (losers) => {
+  socket.on("chomp", (badTooth) => {
+    // update lost players from bets
+    bets[badTooth].map((player) => {
+      const playerEntry = players.find((p) => p.id === player.id) || {
+        lost: true,
+      };
+      playerEntry.lost = true;
+    });
+    const losers = players.filter(user => user.lost === true)
+
+    // update teeth
+    teeth[badTooth] = 0;
+
+    // update state
+    state = State.RESULTS;
+
     socket.broadcast.emit("losers", losers);
-    socket.emit(
-      "newWinners",
-      players.filter((player: User) => losers.indexOf(player) < 0)
-    );
-    logState();
+    socket.emit("players", players);
   });
 
   // TODO: Streamer only
