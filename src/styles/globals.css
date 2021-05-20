@@ -1,6 +1,8 @@
 :root {
   --main-bg-color: brown;
   --sticker-shadow: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.1));
+  --spacing-xsmall: 5px;
+  --spacing-small: 15px;
   --spacing-medium: 30px;
 }
 
@@ -37,7 +39,7 @@ a {
 
 .btn-paper {
   background: white;
-  border: 1px solid rgba(0,0,0,0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 15px;
   padding: 15px;
   margin: 5px;
@@ -47,23 +49,14 @@ a {
   transition: 0.2s linear;
 }
 
+.btn-full-width {
+  width: calc(100% - (var(--spacing-small) * 2));
+  margin: var(--spacing-xsmall) var(--spacing-small);
+}
+
 .btn-paper:hover {
   transform: scale(1.03) rotate(2deg);
-  filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.4));
-}
-
-.player-container {
-  height: 100vh;
-  overflow: auto;
-  max-width: 600px;
-  margin: auto;
-}
-
-.player-container .logo {
-  width: 100%;
-  max-width: var(--max-width);
-  filter: var(--sticker-shadow);
-  margin-top: var(--spacing-medium);
+  filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.4));
 }
 
 .alligator-containment-zone {
@@ -87,7 +80,25 @@ a {
   animation-timing-function: linear;
 }
 
-.new-game-container .join-buttons {
+.player-container {
+  height: 100vh;
+  overflow: auto;
+  max-width: 600px;
+  margin: auto;
+}
+
+.player-container .logo {
+  width: 100%;
+  max-width: var(--max-width);
+  filter: var(--sticker-shadow);
+  margin-top: var(--spacing-medium);
+}
+
+.player-container .new-game-container .join-buttons {
+  text-align: center;
+}
+
+.player-container .betting-container {
   text-align: center;
 }
 

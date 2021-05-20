@@ -7,11 +7,11 @@ interface Props {
 }
 
 const Betting: ComponentType<Props> = ({ teeth, bet, placeBet }) => (
-  <div>
-    <h2>Betting on {bet}</h2>
+  <div className="betting-container">
+    {bet >= 0 && <h2>Betting on {bet}</h2>}
     {teeth.map((tooth, i) => (
       <div>
-        <button type="button" onClick={() => placeBet(i)} disabled={tooth === 0}>
+        <button type="button" onClick={() => placeBet(i)} disabled={tooth === 0} className="btn btn-paper btn-full-width">
           Tooth {i}
         </button>
       </div>
