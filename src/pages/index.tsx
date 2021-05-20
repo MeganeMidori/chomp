@@ -28,7 +28,7 @@ export default function Home() {
 
     socket.on("gameEnded", () => {
       window.location.replace("/api/auth/logout");
-    })
+    });
   }, []);
 
   useEffect(() => {
@@ -79,28 +79,32 @@ export default function Home() {
     socket.emit("newBet", { bet: tooth, user: user });
   };
 
-  if (!user && gameState !== State.LOBBY && gameState !== State.CLOSED) {
-    return <div>Game in progress</div>;
-  }
-  if (lost) {
-    return <LossComponent />;
-  }
-  switch (gameState) {
-    case State.LOBBY:
-      if (user) {
-        return <Lobby />;
-      }
-      return <NewGameComponent login={login} user={user} />;
-    case State.BETTING:
-      return <Betting teeth={teeth} bet={bet} placeBet={placeBet} />;
-    case State.PLAYING:
-      return <PlayingComponent />;
-    case State.RESULTS:
-      return <SuccessComponent />;
-    case State.CREDITS:
-    case State.CLOSED:
-      return <ThankU4PlayingComponent />;
-    default:
-      <ThankU4PlayingComponent />;
-  }
+  const route = () => {
+    if (!user && gameState !== State.LOBBY && gameState !== State.CLOSED) {
+      return <div>Game in progress</div>;
+    }
+    if (lost) {
+      return <LossComponent />;
+    }
+    switch (gameState) {
+      case State.LOBBY:
+        if (user) {
+          return <Lobby />;
+        }
+        return <NewGameComponent login={login} />;
+      case State.BETTING:
+        return <Betting teeth={teeth} bet={bet} placeBet={placeBet} />;
+      case State.PLAYING:
+        return <PlayingComponent />;
+      case State.RESULTS:
+        return <SuccessComponent />;
+      case State.CREDITS:
+      case State.CLOSED:
+        return <ThankU4PlayingComponent />;
+      default:
+        <ThankU4PlayingComponent />;
+    }
+  };
+
+  return <div className="player-container">{route()}</div>;
 }

@@ -1,29 +1,25 @@
 import React, { ComponentType } from "react";
-import { User } from "src/shared/types";
 
 interface Props {
-  login: () => void,
-  user: User
+  login: () => void;
 }
 
-const NewGameComponent: ComponentType<Props> = ({ login, user }) => (
-  <div>
-    {!user && (
-      <>
-        <a href="/api/auth">Join With Twitch!</a>
-        <button type="button" onClick={login}>
-          Join as guesst
+const NewGameComponent: ComponentType<Props> = ({ login }) => (
+  <div className="new-game-container">
+    <img src="/chomp.png" className="logo" />
+    <div className="join-buttons">
+      <div>
+        <a href="/api/auth" className="btn btn-paper">Join With Twitch!</a>
+      </div>
+      <div>
+        <button type="button" onClick={login} className="btn btn-paper">
+          Join as guest
         </button>
-      </>
-    )}
-    {user && (
-      <>
-        <div>Hi {user.display_name}!</div>
-        <div>
-          <a href="/api/auth/logout">Logout</a>
-        </div>
-      </>
-    )}
+      </div>
+    </div>
+    <div className="alligator-containment-zone">
+      <img className="alligator-waiting" src="/loading-alligator.gif" />
+    </div>
   </div>
 );
 
