@@ -19,7 +19,7 @@ const Betting: ComponentType<Props> = ({ teeth, bet, placeBet }) => (
           type="button"
           onClick={() => placeBet(i)}
           disabled={tooth === 0}
-          className="btn btn-paper btn-full-width"
+          className={`btn btn-paper btn-full-width ${i === bet && 'selected'}`}
         >
           Tooth {i + 1}
         </button>

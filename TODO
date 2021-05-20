@@ -1,3 +1,7 @@
+[ ] alligator teeth
+[ ] full screen player betting layout
+
+[x] disabled button styling for betting screen
 [x] hide game pages for not logged in users
 [x] eliminate non voting players
 [x] store losers on server side

@@ -50,16 +50,56 @@ a {
   filter: var(--sticker-shadow);
   transition: 0.2s linear;
   font-family: Arial, Helvetica, sans-serif;
+  position: relative;
 }
 
-.btn-full-width {
-  width: calc(100% - (var(--spacing-small) * 2));
-  margin: var(--spacing-xsmall) var(--spacing-small);
+.btn-paper:disabled {
+  color: black;
+}
+
+.btn-paper.selected:after {
+  content: '';
+  background-image: url(/hand-circled.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 1px solid rgba(0,0,0,0);
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.btn-paper:disabled:after {
+  content: '';
+  background-image: url(/scribble.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 1px solid rgba(0,0,0,0);
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
 }
 
 .btn-paper:hover {
   transform: scale(1.03) rotate(2deg);
   filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.4));
+}
+
+.btn-paper:disabled:hover {
+  transform: none;
+  filter: var(--sticker-shadow);
+}
+
+.btn-full-width {
+  width: calc(100% - (var(--spacing-small) * 2));
+  margin: var(--spacing-xsmall) var(--spacing-small);
 }
 
 .alligator-containment-zone {
