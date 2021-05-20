@@ -1,9 +1,10 @@
+import { config } from "dotenv";
+config();
 import { createServer } from "http";
 import { parse } from "url";
 import next from "next";
 import { Server } from "socket.io";
 import { handler } from "./sockets";
-
 const port = parseInt(process.env.PORT || "3002", 10);
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });

@@ -2,7 +2,7 @@ import Iron from '@hapi/iron'
 import { MAX_AGE, setTokenCookie, getTokenCookie } from './auth-cookies'
 
 // TODO: Why doesn't this token populate when called from the socket??
-const TOKEN_SECRET = process.env.TOKEN_SECRET || "this-is-a-secret-value-with-at-least-32-characters"
+const TOKEN_SECRET = process.env.TOKEN_SECRET || ""
 
 export async function setLoginSession(res:any, session:any) {
   const createdAt = Date.now()

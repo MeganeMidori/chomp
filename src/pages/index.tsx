@@ -79,7 +79,7 @@ export default function Home() {
     socket.emit("newBet", { bet: tooth, user: user });
   };
 
-  if (!user && gameState !== State.LOBBY) {
+  if (!user && gameState !== State.LOBBY && gameState !== State.CLOSED) {
     return <div>Game in progress</div>;
   }
   if (lost) {

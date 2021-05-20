@@ -1,6 +1,6 @@
 import { Socket } from "socket.io";
 import { State, User } from "../shared/types";
-// import { getLoginSession } from '../lib/auth'
+import { getLoginSession } from '../lib/auth'
 
 let state: State = State.CLOSED;
 let players: Array<User> = [];
@@ -38,8 +38,10 @@ const logState = () => {
 };
 
 export const handler = async (socket: Socket) => {
-  // const session = await getLoginSession(socket.handshake)
-  // console.log(session.id, session.display_name)
+  const session = await getLoginSession(socket.handshake)
+  if(session) {
+    console.log(session.id, session.display_name)
+  }
 
   console.log("connection");
   socket.emit("state", state);
