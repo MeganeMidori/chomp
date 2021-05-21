@@ -44,6 +44,11 @@ a {
   box-sizing: border-box;
 }
 
+.handwriting {
+  font-family: "Reenie Beanie", cursive;
+  font-size: 30px;
+}
+
 .btn {
   cursor: pointer;
 }
@@ -60,6 +65,8 @@ a {
   transition: 0.2s linear;
   font-family: Arial, Helvetica, sans-serif;
   position: relative;
+  min-width: 125px;
+  text-align: center;
 }
 
 .btn-paper:disabled {
@@ -329,13 +336,19 @@ a {
   margin-top: var(--spacing-medium);
 }
 
+.logo-small {
+  width: 200px;
+  margin: auto;
+  display: block;
+}
+
 .page-container {
   height: 100vh;
   overflow: auto;
 }
 
 .page-container-dark {
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .player-main-content {
@@ -379,7 +392,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .streamer-container .lobby-container .join-buttons {
@@ -502,6 +515,94 @@ a {
   content: "Al E. Gator";
   color: grey;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.streamer-container .playing-container {
+  display: flex;
+}
+
+.streamer-container .playing-container .clipboard {
+  background: tan;
+  height: 75vh;
+  width: 500px;
+  border-radius: 30px;
+  filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.1));
+  position: relative;
+  transform: rotate(2deg) translateX(-20px);
+  transition: 0.5s;
+  flex-shrink: 0;
+}
+
+.streamer-container .playing-container .clipboard:hover {
+  transform: rotate(1deg) translateX(0px) scale(1.1);
+}
+
+.streamer-container .playing-container .clipboard:after {
+  content: "";
+  height: 60px;
+  width: 150px;
+  background: lightgrey;
+  display: block;
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  margin-left: -75px;
+  filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.1));
+}
+.streamer-container .playing-container .clipboard--paper {
+  background: white;
+  margin: 15px 30px;
+  padding-top: 10px;
+  height: 70vh;
+  filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.1));
+}
+
+.streamer-container .playing-container .clipboard table {
+  border-collapse: collapse;
+  width: calc(100% - 30px);
+  font-size: 18px;
+  margin: 15px;
+}
+.streamer-container .playing-container .clipboard table td {
+  border: 1px solid black;
+}
+
+.streamer-container .playing-container .clipboard table tr td:first-child {
+  width: 100px;
+}
+
+.streamer-container .playing-container .clipboard .photo {
+  background: black;
+}
+.streamer-container .playing-container .clipboard .photo div {
+  width: 123px;
+  overflow: hidden;
+}
+
+.streamer-container .credits-container {
+  height: 100vh;
+  overflow: hidden;
+  align-items: flex-start;
+}
+
+.streamer-container .credits-container h2,
+.streamer-container .credits-container h3 {
+  text-align: center;
+}
+
+.streamer-container .credits-container ul {
+  list-style-type: none;
+  display: flex;
+  flex-flow: row wrap;
+  max-width: 400px;
+  align-content: center;
+  justify-content: space-around;
+  padding: 0;
+  margin: auto;
+}
+
+.streamer-container .credits-container ul li {
+  margin: var(--spacing-medium);
 }
 
 @keyframes walking {

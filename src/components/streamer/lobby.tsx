@@ -20,13 +20,26 @@ const Lobby: ComponentType<Props> = ({ players, startBetting }) => (
 
     <div className="join-buttons">
       <img src="/chomp.png" className="logo" />
-
-      <div>
-        <button type="button" onClick={startBetting} className="btn btn-paper">
-          Start Playing
-        </button>
+      <div style={{display: "flex", justifyContent: "center"}}>
+        <div style={{borderRight: "1px solid rgba(0,0,0,0.2)", paddingRight: '60px'}}>
+          <div>
+            <button
+              type="button"
+              onClick={startBetting}
+              className="btn btn-paper"
+            >
+              Start Playing
+            </button>
+          </div>
+          <h2>
+            {players.length} Player{players.length !== 1 && "s"} Waiting...
+          </h2>
+        </div>
+        <div style={{borderLeft: "1px solid rgba(0,0,0,0.2)", paddingLeft: '60px'}}>
+          <img src="/chomp-qr.png" height="100" />
+          <div>chomp.moe</div>
+        </div>
       </div>
-      <h2>{players.length} Player{players.length !== 1 && 's'} Waiting...</h2>
     </div>
     <img className="alligator-waiting" src="/loading-alligator.gif" />
   </div>

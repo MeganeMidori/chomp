@@ -134,6 +134,8 @@ const Stream = () => {
             teeth={localTeeth}
             pickTooth={pickTooth}
             isOpen={isOpen}
+            bets={bets}
+            players={players}
           />
         );
       case State.CREDITS:

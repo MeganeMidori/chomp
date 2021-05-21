@@ -10,7 +10,7 @@ interface Props {
 
 const Alligator: ComponentType<Props> = ({ teeth, bet, onDown, isOpen }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const maxWidth = 600;
+  const maxWidth = 1000;
   const alligatorWidth = 1493;
   const alligatorHeight = 1202;
   const [alligatorScale, setAlligatorScale] = useState(
