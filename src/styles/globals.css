@@ -521,6 +521,17 @@ a {
   display: flex;
 }
 
+.streamer-container .playing-container .foo {
+  flex-shrink: 1;
+  flex-grow: 1;
+  width: 50vw;
+  transition: 0.5s;
+}
+
+.streamer-container .playing-container .foo:hover {
+  width: 75vw;
+}
+
 .streamer-container .playing-container .clipboard {
   background: tan;
   height: 75vh;
@@ -531,10 +542,11 @@ a {
   transform: rotate(2deg) translateX(-20px);
   transition: 0.5s;
   flex-shrink: 0;
+  margin-top: 12.5vh;
 }
 
 .streamer-container .playing-container .clipboard:hover {
-  transform: rotate(1deg) translateX(0px) scale(1.1);
+  transform: rotate(1deg) translateX(50px) scale(1.1);
 }
 
 .streamer-container .playing-container .clipboard:after {
@@ -555,6 +567,8 @@ a {
   padding-top: 10px;
   height: 70vh;
   filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.1));
+  position: relative;
+  top: 15px;
 }
 
 .streamer-container .playing-container .clipboard table {
@@ -636,4 +650,11 @@ a {
   100% {
     background-position: -300px 0px;
   }
+}
+
+@keyframes shook {
+  0% {transform: rotate(-5deg) translate(-5px, 0) scale(1.2)}
+  49.9999% {transform: rotate(-5deg) translate(-5px, 0) scale(1.2)}
+  50% {transform: rotate(-5deg) translate(5px, 0) scale(1.199)}
+  100% {transform: rotate(-5deg) translate(5px, 0) scale(1.199)}
 }

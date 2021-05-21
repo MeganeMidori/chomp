@@ -21,94 +21,67 @@ const PlayingComponent: ComponentType<Props> = ({
   players,
 }) => (
   <div className="playing-container">
-    <div className="clipboard">
-      <div className="clipboard--paper">
-        <table>
-          <tr>
-            <td className="photo">
-              <div>
-                <img src="/xray.jpeg" height="100" />
-              </div>
-            </td>
-            <td>
-              <div>
-                Name: <span className="handwriting">Al E. Gator</span>
-              </div>
-              <div>
-                Players: <span className="handwriting">{players.filter(player => player.lost === false).length}</span>
-              </div>
-            </td>
-          </tr>
-        </table>
-        <table>
-          <tr>
-            <td>Tooth 1</td>
-            <td className="handwriting">
-              {Math.floor((bets[0].length * 10000) / players.length) / 100}%
-            </td>
-          </tr>
-          <tr>
-            <td>Tooth 2</td>
-            <td className="handwriting">
-              {Math.floor((bets[1].length * 10000) / players.length) / 100}%
-            </td>
-          </tr>
-          <tr>
-            <td>Tooth 3</td>
-            <td className="handwriting">
-              {Math.floor((bets[2].length * 10000) / players.length) / 100}%
-            </td>
-          </tr>
-          <tr>
-            <td>Tooth 4</td>
-            <td className="handwriting">
-              {Math.floor((bets[3].length * 10000) / players.length) / 100}%
-            </td>
-          </tr>
-          <tr>
-            <td>Tooth 5</td>
-            <td className="handwriting">
-              {Math.floor((bets[4].length * 10000) / players.length) / 100}%
-            </td>
-          </tr>
-          <tr>
-            <td>Tooth 6</td>
-            <td className="handwriting">
-              {Math.floor((bets[5].length * 10000) / players.length) / 100}%
-            </td>
-          </tr>
-          <tr>
-            <td>Tooth 7</td>
-            <td className="handwriting">
-              {Math.floor((bets[6].length * 10000) / players.length) / 100}%
-            </td>
-          </tr>
-        </table>
-        <div style={{ padding: "15px" }} className="handwriting">
-          Click on the teeth to yoink!
-        </div>
-        {!isOpen && (
-          <div>
-            <button
-              className="sticker-button"
-              style={{
-                marginTop: "0",
-                marginLeft: "0",
-                position: "absolute",
-                right: "15px",
-                bottom: "30px",
-              }}
-              type="button"
-              onClick={back2Bet}
-            >
-              Play Again
-            </button>
+    <div className="foo">
+      <div className="clipboard">
+        <div className="clipboard--paper">
+          <table>
+            <tr>
+              <td className="photo">
+                <div>
+                  <img src="/xray.jpeg" height="100" />
+                </div>
+              </td>
+              <td>
+                <div>
+                  Name: <span className="handwriting">Al E. Gator</span>
+                </div>
+                <div>
+                  Players:{" "}
+                  <span className="handwriting">
+                    {players.filter((player) => player.lost === false).length}
+                  </span>
+                </div>
+              </td>
+            </tr>
+          </table>
+          <table>
+            {bets.map((_bet, i) => (
+              <tr>
+                <td>Tooth {i + 1}</td>
+                <td className="handwriting">
+                  {Math.floor((bets[i].length * 10000) / players.length) / 100}%
+                </td>
+              </tr>
+            ))}
+          </table>
+          <div style={{ padding: "15px" }} className="handwriting">
+            Click on the teeth to yoink!
           </div>
-        )}
+          {!isOpen && (
+            <div>
+              <button
+                className="btn btn-paper"
+                style={{
+                  marginTop: "0",
+                  marginLeft: "0",
+                  position: "absolute",
+                  right: "15px",
+                  bottom: "30px",
+                }}
+                type="button"
+                onClick={back2Bet}
+              >
+                Play Again
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
-    <div style={{width: '1000px'}}>
-    <Alligator teeth={teeth} bet={-1} onDown={pickTooth} isOpen={isOpen} />
+    <div className="foo">
+      <div style={{ width: "1000px" }}>
+        <Alligator teeth={teeth} bet={-1} onDown={pickTooth} isOpen={isOpen} />
+      </div>
     </div>
   </div>
 );
