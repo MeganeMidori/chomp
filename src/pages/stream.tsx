@@ -104,6 +104,8 @@ const Stream = () => {
     socket.emit("gameOver");
   };
 
+  const isDarkMode = () => gameState === State.BETTING;
+
   const route = () => {
     switch (gameState) {
       case State.CLOSED:
@@ -116,7 +118,13 @@ const Stream = () => {
           />
         );
       case State.BETTING:
-        return <Betting startYoinking={startYoinking} bets={bets} />;
+        return (
+          <Betting
+            startYoinking={startYoinking}
+            bets={bets}
+            players={players}
+          />
+        );
       case State.PLAYING:
       case State.RESULTS:
         return (
@@ -135,7 +143,15 @@ const Stream = () => {
     }
   };
 
-  return <div className="streamer-container page-container">{route()}</div>;
+  return (
+    <div
+      className={`streamer-container page-container ${
+        isDarkMode() && "page-container-dark"
+      }`}
+    >
+      {route()}
+    </div>
+  );
 };
 
 export default Stream;

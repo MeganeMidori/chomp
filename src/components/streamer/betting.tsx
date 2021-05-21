@@ -1,26 +1,17 @@
 import React, { ComponentType } from "react";
+import { User } from "src/shared/types";
+import XrayGraph from "../xraygraph";
 
 interface Props {
-  startYoinking: () => void,
-  bets: Array<Array<string>>
+  startYoinking: () => void;
+  bets: Array<Array<User>>;
+  players: Array<User>;
 }
 
-const Betting: ComponentType<Props> = ({ startYoinking, bets }) => (
-  <div>
-    <h2>betting</h2>
+const Betting: ComponentType<Props> = ({ startYoinking, bets, players }) => (
+  <div className="betting-container streamer-main-content">
     <div>
-      <ul>
-        {bets.map((bet, i) => (
-          <li>
-            Tooth {i}: {bet.length}
-          </li>
-        ))}
-      </ul>
-    </div>
-    <div>
-      <button type="button" onClick={startYoinking}>
-        Start Yoinking
-      </button>
+      <XrayGraph bets={bets} players={players} startYoinking={startYoinking}/>
     </div>
   </div>
 );
