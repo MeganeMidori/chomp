@@ -135,6 +135,10 @@ export const handler = async (socket: Socket) => {
   });
 
   socket.on("gameOver", () => {
+    console.log("┌────── ⋆⋅✦⋅⋆ ──────┐");
+    console.log("       WINNERS        ");
+    console.log(players.filter((player: User) => player.lost === false));
+    console.log("└────── ⋆⋅✦⋅⋆ ──────┘");
     players = [];
     bets = [[], [], [], [], [], [], []];
     teeth = [1, 1, 1, 1, 1, 1, 1];

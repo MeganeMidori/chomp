@@ -58,11 +58,11 @@ a {
 }
 
 .btn-paper.selected:after {
-  content: '';
+  content: "";
   background-image: url(/hand-circled.svg);
   background-repeat: no-repeat;
   background-position: center;
-  border: 1px solid rgba(0,0,0,0);
+  border: 1px solid rgba(0, 0, 0, 0);
   display: block;
   position: absolute;
   top: 0;
@@ -73,11 +73,11 @@ a {
 }
 
 .btn-paper:disabled:after {
-  content: '';
+  content: "";
   background-image: url(/scribble.svg);
   background-repeat: no-repeat;
   background-position: center;
-  border: 1px solid rgba(0,0,0,0);
+  border: 1px solid rgba(0, 0, 0, 0);
   display: block;
   position: absolute;
   top: 0;
@@ -146,6 +146,136 @@ a {
 
 .alligator-body {
   background-image: url("/alligator-body.png");
+}
+
+.alligator-tooth-1 {
+  background-image: url("/tooth-1.png");
+}
+.alligator-tooth-2 {
+  background-image: url("/tooth-2.png");
+}
+.alligator-tooth-3 {
+  background-image: url("/tooth-3.png");
+}
+.alligator-tooth-4 {
+  background-image: url("/tooth-4.png");
+}
+.alligator-tooth-5 {
+  background-image: url("/tooth-5.png");
+}
+.alligator-tooth-6 {
+  background-image: url("/tooth-6.png");
+}
+.alligator-tooth-7 {
+  background-image: url("/tooth-7.png");
+}
+
+.alligator-tooth-1-down {
+  background-image: url("/tooth-1-down.png");
+}
+.alligator-tooth-2-down {
+  background-image: url("/tooth-2-down.png");
+}
+.alligator-tooth-3-down {
+  background-image: url("/tooth-3-down.png");
+}
+.alligator-tooth-4-down {
+  background-image: url("/tooth-4-down.png");
+}
+.alligator-tooth-5-down {
+  background-image: url("/tooth-5-down.png");
+}
+.alligator-tooth-6-down {
+  background-image: url("/tooth-6-down.png");
+}
+.alligator-tooth-7-down {
+  background-image: url("/tooth-7-down.png");
+}
+
+.alligator-tooth-1-select {
+  background-image: url("/tooth-1-select.png");
+}
+.alligator-tooth-2-select {
+  background-image: url("/tooth-2-select.png");
+}
+.alligator-tooth-3-select {
+  background-image: url("/tooth-3-select.png");
+}
+.alligator-tooth-4-select {
+  background-image: url("/tooth-4-select.png");
+}
+.alligator-tooth-5-select {
+  background-image: url("/tooth-5-select.png");
+}
+.alligator-tooth-6-select {
+  background-image: url("/tooth-6-select.png");
+}
+.alligator-tooth-7-select {
+  background-image: url("/tooth-7-select.png");
+}
+
+.tooth-anchor {
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  top: 0;
+  z-index: 10;
+}
+
+.tooth-anchor-1 {
+  top: 510px;
+  left: 313px;
+}
+.tooth-anchor-1:hover ~ .alligator-tooth-1 {
+  background-image: url("/tooth-1-select.png");
+}
+
+.tooth-anchor-2 {
+  top: 530px;
+  left: 250px;
+}
+.tooth-anchor-2:hover ~ .alligator-tooth-2 {
+  background-image: url("/tooth-2-select.png");
+}
+
+.tooth-anchor-3 {
+  top: 578px;
+  left: 192px;
+}
+.tooth-anchor-3:hover ~ .alligator-tooth-3 {
+  background-image: url("/tooth-3-select.png");
+}
+
+.tooth-anchor-4 {
+  top: 628px;
+  left: 177px;
+}
+.tooth-anchor-4:hover ~ .alligator-tooth-4 {
+  background-image: url("/tooth-4-select.png");
+}
+
+.tooth-anchor-5 {
+  top: 645px;
+  left: 238px;
+}
+.tooth-anchor-5:hover ~ .alligator-tooth-5 {
+  background-image: url("/tooth-5-select.png");
+}
+
+.tooth-anchor-6 {
+  top: 645px;
+  left: 302px;
+}
+.tooth-anchor-6:hover ~ .alligator-tooth-6 {
+  background-image: url("/tooth-6-select.png");
+}
+
+.tooth-anchor-7 {
+  top: 620px;
+  left: 362px;
+}
+.tooth-anchor-7:hover ~ .alligator-tooth-7 {
+  background-image: url("/tooth-7-select.png");
 }
 
 .alligator-head-open {

@@ -1,6 +1,13 @@
 import React, { ComponentType, useState, useEffect } from "react";
+import Teeth from "./teeth";
 
-const Alligator = () => {
+interface Props {
+    teeth: Array<number>,
+    bet: number,
+    onDown: (tooth: number) => void
+  }
+
+const Alligator: ComponentType<Props>  = ({teeth, bet, onDown}) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const maxWidth = 600;
   const alligatorWidth = 1493;
@@ -28,7 +35,7 @@ const Alligator = () => {
         <div className="alligator-container">
           <div className="alligator-part alligator-background-open" />
           <div className="alligator-part alligator-body" />
-          <div className="alligator-part alligator-tooth" />
+          <Teeth teeth={teeth} bet={bet} onDown={onDown} />
           <div className="alligator-part alligator-head-open" />
         </div>
       </div>
