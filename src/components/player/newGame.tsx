@@ -5,7 +5,7 @@ interface Props {
 }
 
 const NewGameComponent: ComponentType<Props> = ({ login }) => (
-  <div className="new-game-container">
+  <div className="new-game-container player-main-content">
     <img src="/chomp.png" className="logo" />
     <div className="join-buttons">
       <div>

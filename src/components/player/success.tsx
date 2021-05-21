@@ -1,7 +1,7 @@
 import React from "react";
 
 const SuccessComponent = () => (
-  <div className="new-game-container">
+  <div className="new-game-container player-main-content">
     <img src="/chomp.png" className="logo" />
     <div className="join-buttons">
       <h2>Good job!</h2>

@@ -10,20 +10,28 @@ interface Props {
 const Betting: ComponentType<Props> = ({ teeth, bet, placeBet }) => (
   <div className="betting-container">
     <div className="betting-container-top">
-      <div className="bet-header">{bet < 0 ? 'Please select a tooth' : `Betting on tooth ${bet + 1}`}</div>
-      <Alligator teeth={teeth} bet={bet} onDown={placeBet} />
+      <div className="bet-header">
+        {bet < 0 ? "Please select a tooth" : `Betting on tooth ${bet + 1}`}
+      </div>
+      <div className="player-main-content">
+        <Alligator teeth={teeth} bet={bet} onDown={placeBet} />
+      </div>
     </div>
     <div className="betting-container-bottom">
-      {teeth.map((tooth, i) => (
-        <button
-          type="button"
-          onClick={() => placeBet(i)}
-          disabled={tooth === 0}
-          className={`btn btn-paper btn-full-width ${i === bet && 'selected'}`}
-        >
-          Tooth {i + 1}
-        </button>
-      ))}
+      <div className="player-main-content">
+        {teeth.map((tooth, i) => (
+          <button
+            type="button"
+            onClick={() => placeBet(i)}
+            disabled={tooth === 0}
+            className={`btn btn-paper btn-full-width ${
+              i === bet && "selected"
+            }`}
+          >
+            Tooth {i + 1}
+          </button>
+        ))}
+      </div>
     </div>
   </div>
 );

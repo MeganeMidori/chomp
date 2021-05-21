@@ -285,8 +285,11 @@ a {
 .player-container {
   height: 100vh;
   overflow: auto;
-  max-width: 600px;
-  margin: auto;
+}
+
+.player-main-content {
+    max-width: 600px;
+    margin: auto;
 }
 
 .player-container .logo {
