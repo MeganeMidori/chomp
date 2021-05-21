@@ -106,5 +106,5 @@ export default function Home() {
     }
   };
 
-  return <div className="player-container">{route()}</div>;
+  return <div className="player-container page-container">{route()}</div>;
 }

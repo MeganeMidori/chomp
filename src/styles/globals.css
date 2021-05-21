@@ -13,6 +13,10 @@
   --max-width: 600px;
 }
 
+.streamer-container {
+  --max-width: 600px;
+}
+
 html,
 body {
   padding: 0;
@@ -282,7 +286,32 @@ a {
   background-image: url("/alligator-head-open.png");
 }
 
-.player-container {
+.balloon {
+  background-image: url('/pink-balloon.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 500px;
+  width: 200px;
+  position: absolute;
+  animation-name: hover;
+  animation-duration: 1s;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+  opacity: 0.9;
+}
+
+.balloon-mint {
+  background-image: url('/mint-balloon.png');
+}
+
+.logo {
+  width: 100%;
+  max-width: var(--max-width);
+  filter: var(--sticker-shadow);
+  margin-top: var(--spacing-medium);
+}
+
+.page-container {
   height: 100vh;
   overflow: auto;
 }
@@ -290,13 +319,6 @@ a {
 .player-main-content {
     max-width: 600px;
     margin: auto;
-}
-
-.player-container .logo {
-  width: 100%;
-  max-width: var(--max-width);
-  filter: var(--sticker-shadow);
-  margin-top: var(--spacing-medium);
 }
 
 .player-container .new-game-container .join-buttons {
@@ -331,6 +353,18 @@ a {
   text-align: left;
 }
 
+.streamer-main-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.streamer-container .lobby-container .join-buttons {
+  text-align: center;
+  margin-bottom: 300px;
+}
+
 @keyframes walking {
   from {
     left: -300px;
@@ -338,4 +372,9 @@ a {
   to {
     left: 100vw;
   }
+}
+
+@keyframes hover {
+  from {margin-top: -10px;}
+  to {margin-top: 10px;}
 }

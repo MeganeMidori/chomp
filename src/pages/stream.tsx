@@ -104,31 +104,38 @@ const Stream = () => {
     socket.emit("gameOver");
   };
 
-  switch (gameState) {
-    case State.CLOSED:
-      return <NewGameComponent newGame={emitGameState(State.LOBBY)} />;
-    case State.LOBBY:
-      return (
-        <Lobby players={players} startBetting={emitGameState(State.BETTING)} />
-      );
-    case State.BETTING:
-      return <Betting startYoinking={startYoinking} bets={bets} />;
-    case State.PLAYING:
-    case State.RESULTS:
-      return (
-        <PlayingComponent
-          back2Bet={back2Bet}
-          endGame={emitGameState(State.CREDITS)}
-          teeth={localTeeth}
-          pickTooth={pickTooth}
-          isOpen={isOpen}
-        />
-      );
-    case State.CREDITS:
-      return <CreditsComponent closeGame={endGame} players={players} />;
-    default:
-      return <ThankU4PlayingComponent />;
-  }
+  const route = () => {
+    switch (gameState) {
+      case State.CLOSED:
+        return <NewGameComponent newGame={emitGameState(State.LOBBY)} />;
+      case State.LOBBY:
+        return (
+          <Lobby
+            players={players}
+            startBetting={emitGameState(State.BETTING)}
+          />
+        );
+      case State.BETTING:
+        return <Betting startYoinking={startYoinking} bets={bets} />;
+      case State.PLAYING:
+      case State.RESULTS:
+        return (
+          <PlayingComponent
+            back2Bet={back2Bet}
+            endGame={emitGameState(State.CREDITS)}
+            teeth={localTeeth}
+            pickTooth={pickTooth}
+            isOpen={isOpen}
+          />
+        );
+      case State.CREDITS:
+        return <CreditsComponent closeGame={endGame} players={players} />;
+      default:
+        return <ThankU4PlayingComponent />;
+    }
+  };
+
+  return <div className="streamer-container page-container">{route()}</div>;
 };
 
 export default Stream;
