@@ -81,7 +81,7 @@ export default function Home() {
 
   const route = () => {
     if (!user && gameState !== State.LOBBY && gameState !== State.CLOSED) {
-      return <div>Game in progress</div>;
+      return <PlayingComponent />;
     }
     if (lost) {
       return <LossComponent />;

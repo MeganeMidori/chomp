@@ -1,4 +1,5 @@
 import React, { ComponentType } from "react";
+import Alligator from "../alligator";
 
 interface Props {
   back2Bet: () => void,
@@ -9,23 +10,8 @@ interface Props {
 }
 
 const PlayingComponent: ComponentType<Props> = ({ back2Bet, teeth, pickTooth, isOpen }) => (
-  <div>
-    <h2>game in progress</h2>
-    {isOpen && (
-      <div>
-        {teeth.map((tooth, i) => (
-          <div>
-            <button
-              type="button"
-              onClick={() => pickTooth(i)}
-              disabled={tooth === 0}
-            >
-              Tooth {i}
-            </button>
-          </div>
-        ))}
-      </div>
-    )}
+  <div className="betting-container">
+    <Alligator teeth={teeth} bet={-1} onDown={pickTooth} isOpen={isOpen} />
     {!isOpen && (
       <div>
         <div>OUCH</div>

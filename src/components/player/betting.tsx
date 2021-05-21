@@ -14,7 +14,7 @@ const Betting: ComponentType<Props> = ({ teeth, bet, placeBet }) => (
         {bet < 0 ? "Please select a tooth" : `Betting on tooth ${bet + 1}`}
       </div>
       <div className="player-main-content">
-        <Alligator teeth={teeth} bet={bet} onDown={placeBet} />
+        <Alligator teeth={teeth} bet={bet} onDown={placeBet} isOpen={true} />
       </div>
     </div>
     <div className="betting-container-bottom">

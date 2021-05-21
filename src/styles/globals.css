@@ -153,6 +153,10 @@ a {
   background-image: url("/alligator-background-open.png");
 }
 
+.alligator-background-closed {
+  background-image: url("/alligator-background-closed.png");
+}
+
 .alligator-body {
   background-image: url("/alligator-body.png");
 }
@@ -229,6 +233,11 @@ a {
   position: absolute;
   top: 0;
   z-index: 10;
+  cursor: grab;
+}
+
+.tooth-anchor:active {
+  cursor: grabbing;
 }
 
 .tooth-anchor-1 {
@@ -289,6 +298,10 @@ a {
 
 .alligator-head-open {
   background-image: url("/alligator-head-open.png");
+}
+
+.alligator-head-closed {
+  background-image: url("/alligator-head-closed.png");
 }
 
 .balloon {
