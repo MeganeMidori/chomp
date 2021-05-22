@@ -1,12 +1,14 @@
 import { Socket } from "socket.io";
 import { State, User } from "../shared/types";
-import { getLoginSession } from '../lib/auth'
+import { getLoginSession } from "../lib/auth";
 
+/*** STATE ***/
 let state: State = State.CLOSED;
 let players: Array<User> = [];
 let bets: Array<Array<User>> = [[], [], [], [], [], [], []];
 let teeth: Array<number> = [1, 1, 1, 1, 1, 1, 1];
 
+/*** HELPERS ***/
 const logState = () => {
   console.log("┌────── ⋆⋅✦⋅⋆ ──────┐");
   console.log("     STATE UPDATED    ");
@@ -37,19 +39,8 @@ const logState = () => {
   console.log("└────── ⋆⋅✦⋅⋆ ──────┘");
 };
 
-export const handler = async (socket: Socket) => {
-  const session = await getLoginSession(socket.handshake)
-  if(session) {
-    console.log(session.id, session.display_name)
-  }
-
-  console.log("connection");
-  socket.emit("state", state);
-  socket.emit("players", players);
-  socket.emit("newBets", bets);
-  socket.emit("newTeeth", teeth);
-
-  // TODO: streamer only
+/*** STREAMER HANDLERS ***/
+const streamerHandlers = (socket: Socket) => {
   socket.on("state", (newState) => {
     state = newState;
     socket.broadcast.emit("state", newState);
@@ -57,37 +48,6 @@ export const handler = async (socket: Socket) => {
     logState();
   });
 
-  // TODO: only during lobby game state
-  socket.on("newPlayer", (user) => {
-    if (!players.find((u: User) => u.id === user.id)) {
-      players.push({ ...user, lost: false });
-      socket.broadcast.emit("players", players);
-    }
-    logState();
-  });
-
-  // TODO: only during betting game state
-  // TODO: only existing/not losing users
-  // TODO: only valid teeth
-  socket.on("newBet", (betObj) => {
-    const bet = betObj.bet;
-    const user = betObj.user;
-
-    if (teeth[bet] === 0) {
-      return;
-    }
-
-    bets = bets.map((betPlayers: Array<User>) =>
-      betPlayers.filter((usr: User) => usr.id !== user.id)
-    );
-    bets[bet].push(user);
-
-    socket.broadcast.emit("newBets", bets);
-    socket.emit("betPlaced", bet);
-    logState();
-  });
-
-  //TODO: streamer only
   socket.on("losers", (losers) => {
     losers.map((player: User) => {
       const playerEntry = players.find((p) => p.id === player.id) || {
@@ -100,7 +60,6 @@ export const handler = async (socket: Socket) => {
     socket.emit("players", players);
   });
 
-  // TODO: streamer only
   socket.on("chomp", (badTooth) => {
     // update lost players from bets
     bets[badTooth].map((player) => {
@@ -121,7 +80,6 @@ export const handler = async (socket: Socket) => {
     socket.emit("players", players);
   });
 
-  // TODO: Streamer only
   socket.on("endGameRound", ({ newTeeth }) => {
     state = State.BETTING;
     teeth = newTeeth;
@@ -146,6 +104,68 @@ export const handler = async (socket: Socket) => {
 
     socket.emit("gameEnded");
     socket.broadcast.emit("gameEnded");
+    logState();
+  });
+};
+
+/*** SOCKET HANDLER ***/
+export const handler = async (socket: Socket) => {
+  console.log("connection");
+  // SET UP STATE
+  socket.emit("state", state);
+  socket.emit("players", players);
+  socket.emit("newBets", bets);
+  socket.emit("newTeeth", teeth);
+
+  const session = await getLoginSession(socket.handshake);
+  const isStreamer = session && session.id === process.env.TWITCH_ID;
+  if (isStreamer) {
+    streamerHandlers(socket);
+  }
+
+  socket.on("newPlayer", (user) => {
+    // if not lobby state do nothing
+    if (state !== State.LOBBY) {
+      return;
+    }
+
+    // add the player if they haven't already joined
+    if (!players.find((u: User) => u.id === user.id)) {
+      players.push({ ...user, lost: false });
+      socket.broadcast.emit("players", players);
+    }
+    logState();
+  });
+
+  socket.on("newBet", (betObj) => {
+    // if not betting state do nothing
+    if (state !== State.BETTING) {
+      return;
+    }
+
+    const bet = betObj.bet;
+    const user = betObj.user;
+
+    // if the user is not in the list of active players, do nothing
+    if (
+      !players.find((player) => player.id === user.id && player.lost === false)
+    ) {
+      return;
+    }
+
+    // if the tooth is missing, do nothing
+    if (teeth[bet] === 0) {
+      return;
+    }
+
+    // remove player's previous bet and place new bet
+    bets = bets.map((betPlayers: Array<User>) =>
+      betPlayers.filter((usr: User) => usr.id !== user.id)
+    );
+    bets[bet].push(user);
+
+    socket.broadcast.emit("newBets", bets);
+    socket.emit("betPlaced", bet);
     logState();
   });
 };

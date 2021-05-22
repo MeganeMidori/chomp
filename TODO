@@ -1,8 +1,8 @@
 [ ] preload assets
 [ ] handle page refresh
 [ ] prevent all the players from losing in one round
-[ ] secure socket methods
 
+[x] secure socket methods
 [x] full screen player betting layout
 [x] alligator teeth
 [x] disabled button styling for betting screen
