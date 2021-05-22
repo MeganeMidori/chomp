@@ -549,6 +549,10 @@ a {
   transform: rotate(1deg) translateX(50px) scale(1.1);
 }
 
+.clipboard-rustle {
+  /* display: none; */
+}
+
 .streamer-container .playing-container .clipboard:after {
   content: "";
   height: 60px;

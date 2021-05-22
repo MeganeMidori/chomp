@@ -8,6 +8,11 @@ import PlayingComponent from "src/components/streamer/playing";
 import ThankU4PlayingComponent from "src/components/streamer/thankU4Playing";
 import CreditsComponent from "src/components/streamer/credits";
 
+const playSound = (file: string) => {
+  var audio = new Audio(file);
+  audio.play();
+}
+
 const calculateNewTeeth = (teeth: Array<number>, badTooth: number) => {
   if (teeth.filter((tooth) => tooth === 1).length <= 2) {
     return [1, 1, 1, 1, 1, 1, 1];
@@ -40,6 +45,8 @@ const Stream = () => {
     });
 
     socket.on("newBets", (newBets) => {
+      if(newBets.flat().length > 0)
+      playSound('tooth_grow.mp3');
       setBets(newBets);
     });
 
@@ -55,6 +62,22 @@ const Stream = () => {
     socket.on("gameEnded", () => {
       window.location.replace("/stream");
     });
+
+    var audio = new Audio("/dentist_office.mp3");
+    audio.volume = 0.3;
+    if (typeof audio.loop == "boolean") {
+      audio.loop = true;
+    } else {
+      audio.addEventListener(
+        "ended",
+        function () {
+          this.currentTime = 0;
+          this.play();
+        },
+        false
+      );
+    }
+    audio.play();
   }, []);
 
   const emitGameState = (newState: State) => () => {
@@ -63,11 +86,15 @@ const Stream = () => {
 
   const pickTooth = (tooth: number) => {
     if (tooth === badTooth) {
+      playSound('rotten_tooth.mp3');
       setIsOpen(false);
       socket.emit("chomp", badTooth);
       emitGameState(State.RESULTS)();
       return;
     }
+
+    playSound('tooth_pull.mp3');
+
     const newLocalTeeth = localTeeth.map((toothValue, i) => {
       return tooth === i ? 0 : toothValue;
     });
