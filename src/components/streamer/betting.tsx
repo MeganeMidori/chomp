@@ -1,6 +1,6 @@
 import React, { ComponentType } from "react";
 import { User } from "src/shared/types";
-import XrayGraph from "../xraygraph";
+import XrayGraph from "../xrayGraph";
 
 interface Props {
   startYoinking: () => void;
