@@ -64,7 +64,7 @@ const Stream = () => {
     });
 
     var audio = new Audio("/dentist_office.mp3");
-    audio.volume = 0.3;
+    audio.volume = 0.2;
     if (typeof audio.loop == "boolean") {
       audio.loop = true;
     } else {

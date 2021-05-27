@@ -1,10 +1,10 @@
 import React from "react";
 
 const LossComponent = () => (
-  <div className="new-game-container player-main-content">
-    <img src="/chomp.png" className="logo" />
+  <div className="game-over-container player-main-content">
     <div className="join-buttons">
-      <h2>is this loss</h2>
+      <img src="/gameover.png" style={{width: '100%'}} />
+      <h2>YOU GOT CHOMPED</h2>
     </div>
   </div>
 );

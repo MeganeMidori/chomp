@@ -8,6 +8,9 @@
     "start": "cross-env NODE_ENV=production node dist/index.js",
     "lint": "eslint --ext .tsx,.ts --fix src/"
   },
+  "engines": {
+    "node": "16.x"
+  },
   "dependencies": {
     "@hapi/iron": "^6.0.0",
     "@types/hapi": "^18.0.5",

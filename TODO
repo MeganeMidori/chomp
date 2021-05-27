@@ -2,6 +2,7 @@
 [ ] handle page refresh
 [ ] prevent all the players from losing in one round
 
+[x] add sounds
 [x] secure socket methods
 [x] full screen player betting layout
 [x] alligator teeth

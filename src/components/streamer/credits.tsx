@@ -55,7 +55,7 @@ const Betting: ComponentType<Props> = ({ closeGame, players }) => {
         <h3>Developers</h3>
         <ul>
           <li className="btn btn-paper">Pj-hime</li>
-          <li className="btn btn-paper">Sidney Keese</li>
+          <li className="btn btn-paper">Sidke</li>
         </ul>
         <h3>Sound Design</h3>
         <ul>
