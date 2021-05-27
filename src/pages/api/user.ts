@@ -1,6 +1,8 @@
+import {Request, Response} from 'express';
+
 import { getLoginSession } from '../../lib/auth'
 
-export default async function user(req, res) {
+export default async function user(req: Request, res: Response) {
   try {
     const session = await getLoginSession(req)
     let user;

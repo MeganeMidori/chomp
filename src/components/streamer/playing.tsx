@@ -26,7 +26,7 @@ const PlayingComponent: ComponentType<Props> = ({
   return (
     <div className="playing-container">
       <div className="foo">
-        <div className="clipboard" onMouseEnter={play}>
+        <div className="clipboard" onMouseEnter={() => play()}>
           <div className="clipboard--paper">
             <table>
               <tr>

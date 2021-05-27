@@ -10,14 +10,14 @@ const Betting: ComponentType<Props> = ({ closeGame, players }) => {
   useEffect(() => {
     const scrollCredits = () => {
       if (
-        document.getElementById("credits").scrollHeight -
-          document.getElementById("credits").offsetHeight <=
-        document.getElementById("credits").scrollTop
+        document.getElementById("credits")!.scrollHeight -
+          document.getElementById("credits")!.offsetHeight <=
+        document.getElementById("credits")!.scrollTop
       ) {
         clearInterval(scroller);
       }
-      document.getElementById("credits").scrollTop =
-        document.getElementById("credits").scrollTop + 1;
+      document.getElementById("credits")!.scrollTop =
+        document.getElementById("credits")!.scrollTop + 1;
     };
 
     const scroller = setInterval(scrollCredits, 10);

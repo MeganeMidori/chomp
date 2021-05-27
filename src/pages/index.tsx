@@ -14,11 +14,11 @@ export default function Home() {
   const socket = useMemo(() => io(), [io]);
 
   const [gameState, setGameState] = useState(State.CLOSED);
-  const [guestUser, setGuestUser] = useState();
+  const [guestUser, setGuestUser] = useState<User>();
   const [teeth, setTeeth] = useState([1, 1, 1, 1, 1, 1, 1]);
   const [bet, setBet] = useState(-1);
   const [lost, setLost] = useState(false);
-  const user = useUser() || guestUser;
+  const user = useUser({}) || guestUser;
 
   useEffect(() => {
     socket.on("state", (state: State) => {
@@ -70,6 +70,7 @@ export default function Home() {
     const userObj = {
       id: `${Math.floor(Math.random() * 1000000000)}`,
       display_name: newUser,
+      lost: false
     };
     setGuestUser(userObj);
     socket.emit("newPlayer", userObj);
