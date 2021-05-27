@@ -50,7 +50,7 @@ const Alligator: ComponentType<Props> = ({ teeth, bet, onDown, isOpen }) => {
 
       <svg id="filter">
     <filter id="noise">
-      <feTurbulence baseFrequency="0.60" xresult="colorNoise" />
+      <feTurbulence baseFrequency="0.60" result="colorNoise" />
       <feColorMatrix in="colorNoise" type="matrix" values=".33 .33 .33 0 0 .33 .33 .33 0 0 .33 .33 .33 0 0 0 0 0 1 0"/>
       <feComposite operator="in" in2="SourceGraphic" result="monoNoise"/>
       <feBlend in="SourceGraphic" in2="monoNoise" mode="multiply" />
