@@ -1,4 +1,4 @@
-import React, { ComponentType, useEffect, useState } from "react";
+import React, { ComponentType, useEffect } from "react";
 import { User } from "src/shared/types";
 
 interface Props {
