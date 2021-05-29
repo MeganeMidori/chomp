@@ -1,5 +1,4 @@
 import React, { ComponentType } from "react";
-import Alligator from "../alligator";
 
 interface Props {
   teeth: Array<number>;
