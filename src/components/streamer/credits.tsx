@@ -61,10 +61,6 @@ const Betting: ComponentType<Props> = ({ closeGame, players }) => {
         <ul>
           <li className="btn btn-paper">Josh Hou</li>
         </ul>
-        <h3>Playtesters</h3>
-        <ul>
-          <li></li>
-        </ul>
         <div style={{ height: "50vh" }} />
         <div style={{textAlign: 'center'}}>
           <button type="button" onClick={closeGame} className="btn btn-paper">
