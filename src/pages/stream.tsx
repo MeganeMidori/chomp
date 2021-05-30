@@ -103,7 +103,7 @@ const Stream = () => {
   };
 
   const back2Bet = () => {
-    if (players.filter((player: User) => player.lost === false).length < 5) {
+    if (players.filter((player: User) => player.lost === false).length < 10) {
       emitGameState(State.CREDITS)();
       return;
     }
